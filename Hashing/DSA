@@ -162,3 +162,39 @@ class Solution {
     };]
 
     /***************************************************************************************/
+
+[Problem Link:-https://leetcode.com/problems/longest-consecutive-sequence/
+Solution:-
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+         unordered_map<int, bool> present, checked;
+         int longestSize=0;
+         for(int i=0;i<nums.size();i++){
+             present[nums[i]]=true;
+         }
+         for(int i=0;i<nums.size();i++){
+             if(!checked[nums[i]]){
+                 if(present[nums[i]-1]){
+                   checked[nums[i]]=true;
+                 }else{
+                    int size=0;
+                    int checker=nums[i];
+                    while(present[checker]){
+                          size++;
+                          checker++;
+                    }
+                    longestSize=max(longestSize,size);
+                 }
+             }
+         }
+         return longestSize;
+
+    }
+};]
+
+/***************************************************************************************/
+
+
+Problem Link:-https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
+Solution:-
