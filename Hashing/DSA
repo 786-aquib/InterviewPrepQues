@@ -76,3 +76,89 @@ void solve(int *arr, int n, int l, int r)
 
 
 /***************************************************************************************/
+
+[Problem Link:-https://www.geeksforgeeks.org/maximum-distance-two-occurrences-element-array/
+Solution:-
+int maxDistance(int arr[], int n){
+    // Used to store element to first index mapping
+    unordered_map<int, int> mp;
+    // Traverse elements and find maximum distance between
+    // same occurrences with the help of map.
+    int max_dist = 0;
+    for (int i=0; i<n; i++){
+        // If this is first occurrence of element, insert its
+        // index in map
+        if (mp.find(arr[i]) == mp.end())
+            mp[arr[i]] = i;
+    // Else update max distance
+        else
+            max_dist = max(max_dist, i - mp[arr[i]]);
+    }
+    return max_dist;
+}]
+
+
+/***************************************************************************************/
+
+[Problem Link:-https://leetcode.com/problems/first-unique-character-in-a-string/
+Solution:-
+class Solution {
+    public:
+        int firstUniqChar(string s) {
+            //put everything in a map
+            map<char,int>mp;
+            int ans = -1;
+            for(auto it: s){
+                map<char,int>::iterator iter = mp.find(it);
+                if(iter == mp.end()){
+                    //add to map
+                    mp.emplace(it,0);
+                }
+                else{
+                    mp[it]++;
+                    //increment by 1 at map location
+                }
+            }
+            int index = 0;
+            for(auto it: s){
+                map<char,int>::iterator iter = mp.find(it);
+                if(iter->second == 0) return index;
+                index++;
+            }
+            return -1;
+        }
+    };]
+
+
+/***************************************************************************************/
+
+[Problem Link:-https://leetcode.com/problems/find-common-characters/
+Solution:-
+class Solution {
+    public:
+        vector<string> commonChars(vector<string>& words) {
+      vector<int> ans_freq(26, INT_MAX);
+      int n=words.size();
+      for (int i = 0; i < n; i++){
+        vector<int> freq(26,0);
+        string word = words[i];
+        for (int j = 0; j < word.size(); j++)
+          freq[word[j] - 'a']++;
+        for (int j = 0; j < 26; j++)
+          ans_freq[j] = min(ans_freq[j], freq[j]);
+      }
+       vector<string> ans;
+      for (int i = 0; i < 26; i++){
+        while (ans_freq[i] != 0){
+          string s="";
+          char c = 'a' + i;
+          s=s+c;
+          ans.push_back(s);
+          ans_freq[i]--;
+        }
+      }
+        return ans;
+        }
+    };]
+
+    /***************************************************************************************/
