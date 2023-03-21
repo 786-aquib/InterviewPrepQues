@@ -196,5 +196,35 @@ public:
 /***************************************************************************************/
 
 
-Problem Link:-https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
+[Problem Link:-https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
 Solution:-
+class Solution{
+    public:
+    int maxLen(vector<int>&A, int n){
+        unordered_map<int,int> Present;
+        int longestSize=0;
+        for(int i=1;i<n;i++){
+            A[i]+=A[i-1];
+        }
+        for(int i=0;i<n;i++){
+        	if(A[i]==0){
+        		longestSize=max(longestSize,i+1);
+        	}
+        }
+        for(int i=0;i<n;i++){
+            if(!Present[A[i]]){
+                Present[A[i]]=i+1;
+            }else{
+                int CurrentSize=i-Present[A[i]]+1;
+                longestSize=max(longestSize,CurrentSize);
+            }
+        }
+        return longestSize;
+    }
+};]
+
+
+/***************************************************************************************/
+
+
+Problem Link:-
