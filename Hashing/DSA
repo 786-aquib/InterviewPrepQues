@@ -227,4 +227,69 @@ class Solution{
 /***************************************************************************************/
 
 
-Problem Link:-
+[Problem Link:-https://leetcode.com/problems/continuous-subarray-sum/
+Solution:-
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& A, int k) {
+        unordered_map<int,int> Present;
+        int longestSize=0;
+        int n=A.size();
+        for(int i=1;i<n;i++){
+            A[i]+=A[i-1];
+            A[i]%=k;
+        }
+        A[0]%=k;
+        // debug(A);
+       for(int i=0;i<n;i++){
+           if(i!=0 && A[i]==0){
+               return true;
+           }
+       	if(!Present[A[i]]){
+       		Present[A[i]]=i+1;
+       	}else{
+       		if((i+1)-Present[A[i]]>=2){
+       			return true;
+       		}
+       	}
+       }
+       return false;
+    }
+};]
+
+/***************************************************************************************/
+
+[Problem Link:-https://leetcode.com/problems/continuous-subarray-sum/
+Solution:-
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& A, int k) {
+        unordered_map<int,int> Present;
+        int longestSize=0;
+        int n=A.size();
+        for(int i=1;i<n;i++){
+            A[i]+=A[i-1];
+            A[i]%=k;
+        }
+        A[0]%=k;
+        // debug(A);
+       for(int i=0;i<n;i++){
+           if(i!=0 && A[i]==0){
+               return true;
+           }
+       	if(!Present[A[i]]){
+       		Present[A[i]]=i+1;
+       	}else{
+       		if((i+1)-Present[A[i]]>=2){
+       			return true;
+       		}
+       	}
+       }
+       return false;
+    }
+};]
+
+
+/***************************************************************************************/
+
+
