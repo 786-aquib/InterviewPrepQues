@@ -375,6 +375,68 @@ int Solution::solve(vector<int> &A, int k) {
 
 /***************************************************************************************/
 
-[Problem Link:-
+[Problem Link:-https://www.geeksforgeeks.org/smallest-subarray-with-sum-k-from-an-array/
 Solution:-
+int smallestSubarraySumK(vector<int> & arr, int k ){
+    // Use map here to store the prefixSum ending
+    // at ith index.
+    unordered_map<long long, int> unmap;
+    int n = arr.size();
+    // Store the current Prefix sum till ith index;
+    long long currPrefixSum = 0;
+    // Store the minimum size subarray whose sum is K
+    long long result = INT_MAX;
+    for(int i = 0; i < n; i++){
+        currPrefixSum += arr[i];
+        // Check if the current prefix sum is equals to K
+        if(currPrefixSum == k){
+            long long currLen = i + 1;
+            result = min(result, currLen);
+        }
+        // Required PrefixSum
+        long long requirePrefixSum
+            = currPrefixSum - k;
+        // Check if there exist any required
+        // Prefix Sum or not
+        if(unmap.count(requirePrefixSum)){
+            long long foundIdx =
+                unmap[requirePrefixSum];
+            long long currIdx = i;
+            result = min(result,
+                           currIdx - foundIdx);
+        }
+        // Store the current prefix sum ending
+        // at i
+        unmap[currPrefixSum] = i;
+    }
+    if(result >= INT_MAX) return -1;
+    // return the result
+    return result;
+}]
 
+
+/***************************************************************************************/
+
+
+[Problem Link:-https://practice.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Solution:-
+class Solution {
+  public:
+    int lenOfLongSubarr(int A[],  int N, int K){
+        int ans=0;
+        int sum=0;
+        unordered_map<int,int> preSum;
+        preSum.insert({0,-1});
+        for(int i=0;i<N;i++) {
+            sum+=A[i];
+            if(preSum.find(sum-K)!=preSum.end())
+                ans=max(i-preSum[sum-K],ans);
+            if(preSum.find(sum)==preSum.end())
+                preSum.insert({sum,i});
+        }
+        return ans;
+    }
+};]
+
+
+/***************************************************************************************/
