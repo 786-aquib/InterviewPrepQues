@@ -31,13 +31,17 @@ void del(){
             int parent = 1 ;
             int child1 = 2 ;
             int child2 = 3 ;
-            while(  (child1<=sz && b[parent]>child1) || (child2<=sz && b[parent]>child2) ){
+            while((child1<=sz && b[parent]>child1) || (child2<=sz && b[parent]>child2)){
                 if(child1<child2){
                     swap(b[parent],b[child1]);
+                    parent=child1;
                 }
                 else{
                     swap(b[parent],b[child2]);
+                    parent=child2;
                 }
+                child1=2*parent;
+                child2=2*parent+1;
                   }
                     }
             else if(sz==1){
