@@ -103,7 +103,85 @@ public:
 
 
 
-[Problem Link:-
+[Problem Link:-https://www.geeksforgeeks.org/number-subarrays-sum-less-k/
 Solution:-
-]
+int countSubarrays(int arr[], int n, int k){
+    int start = 0, end = 0,
+        count = 0, sum = arr[0];
+    while (start < n && end < n) {
+        // If sum is less than k,
+        // move end by one position.
+        // Update count and sum
+        // accordingly.
+        if (sum < k) {
+            end++;
+            if (end >= start)
+                count += end - start;
+            // For last element,
+            // end may become n
+            if (end < n)
+                sum += arr[end];
+        }
+        // If sum is greater than or
+        // equal to k, subtract
+        // arr[start] from sum and
+        // decrease sliding window by
+        // moving start by one position
+        else {
+            sum -= arr[start];
+            start++;
+        }
+    }
+    return count;
+}]
 
+
+/********************************************************************************************/
+
+
+
+[Problem Link:-https://www.geeksforgeeks.org/count-pairs-array-whose-sum-less-x/
+Solution:-
+int findPairs(int arr[],int n,int x){
+    int l = 0, r = n-1;
+    int result = 0;
+    while (l < r){
+        // If current left and current
+        // right have sum smaller than x,
+        // the all elements from l+1 to r
+        // form a pair with current l.
+        if (arr[l] + arr[r] < x){
+            result += (r - l);
+            l++;
+        }
+        // Move to smaller value
+        else
+            r--;
+    }
+    return result;
+}]
+
+
+/********************************************************************************************/
+
+
+                             [SLIDING WINDOW + TWO POINTER]
+
+[Problem Link:-https://practice.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+Solution:-
+class Solution{
+ public:
+    long maximumSumSubarray(int k, vector<int> &a , int n){
+        long l=0,r=0;
+        long sum=0,finalSum=0;
+        for(long r=0;r<n;r++){
+            sum+=a[r];
+            while(r-l>=k){
+                sum-=a[l];
+                l++;
+            }
+            finalSum=max(finalSum,sum);
+        }
+        return finalSum;
+    }
+}]
