@@ -165,7 +165,7 @@ int findPairs(int arr[],int n,int x){
 /********************************************************************************************/
 
 
-                             [SLIDING WINDOW + TWO POINTER]
+                               [SLIDING WINDOW + TWO POINTER]
 
 [Problem Link:-https://practice.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
 Solution:-
@@ -185,3 +185,32 @@ class Solution{
         return finalSum;
     }
 }]
+
+
+   /********************************************************************************************/
+
+
+   [Problem Link:-https://practice.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+   Solution:-
+    class Solution{
+  public:
+    int longestKSubstr(string s, int k) {
+    int n=s.size();
+    unordered_map<char,int> ump;
+    int lenth=-1;
+    int l=0;
+    for(int r=0;r<n;r++){
+         ump[s[r]]++;
+        if(ump.size()==k){
+            lenth=max(lenth,r-l+1);
+        }
+        while(ump.size()>k){
+            ump[s[l]]--;
+            if(ump[s[l]]==0){
+                ump.erase(s[l]);
+            }
+            l++;
+        }
+    }
+    return lenth;
+    };]
