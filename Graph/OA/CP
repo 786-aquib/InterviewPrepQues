@@ -1,0 +1,107 @@
+[Problem Statement:-Maximum Number of 5 marked nodes in shortest path of the graph where the nodes have value only 0 and 5.
+Solution:-
+#include<bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+#define            int            long long
+#define            vi             vector<int>
+#define            vp             vector<pair<int,int>>
+#define            pb             push_back
+#define            all(v)         v.begin(),v.end()
+#define            fl(i,a,n)      for(int i = (a); i < (n); i++)
+#define            F              first
+#define            S              second
+#define            pb             push_back 
+#define            sz(x)          (int)x.size()
+#define            mod            1000000007
+int nxt(){int x; cin >> x; return x;}
+/*--- debuger --- */
+void __print(int32_t x) {cerr << x;} void __print(long x) {cerr << x;} void __print(long long x) {cerr << x;} void __print(unsigned x) {cerr << x;} void __print(unsigned long x) {cerr << x;} void __print(unsigned long long x) {cerr << x;} void __print(float x) {cerr << x;} 
+void __print(double x) {cerr << x;} void __print(long double x) {cerr << x;} void __print(char x) {cerr << '\'' << x << '\'';} void __print(const char *x) {cerr << '\"' << x << '\"';} void __print(const string &x) {cerr << '\"' << x << '\"';} void __print(bool x) {cerr << (x ? "true" : "false");}
+template<typename T, typename V> void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
+template<typename T> void __print(const T &x) {int f = 0; cerr << '{'; for (auto &i : x) cerr << (f++ ? "," : ""), __print(i); cerr << "}";}
+void _print() {cerr << "]\n";}
+template <typename T, typename... V> void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v...);}
+ 
+#ifndef ONLINE_JUDGE
+#define debug(x...) cerr << "[" << #x << "] = ["; _print(x)
+#else
+#define debug(x...)
+#endif
+int maxi=5005;
+vector<bool> vis(maxi,false);
+vector<int> level(maxi,-1);
+vector<int> type(maxi,-1);
+vector<int> five(maxi,0);
+void bfs(int node, vector<vector<int>> &adj, int destination){
+    vis[node]=true;
+    queue<int> q;
+    q.push(node);
+    while(!q.empty()){
+    	int parent=q.front();
+    	q.pop();
+    	for(auto child : adj[parent]){
+    		if(!vis[child]){
+    			q.push(child);
+    			vis[child]=true;
+    			level[child]=level[parent]+1;
+    			if(type[child]==5){
+                    five[child]=five[parent]+1;
+    			}else{
+    				five[child]=five[parent];
+    			}
+    		}else{
+                if(level[parent]+1==level[child]){
+                	int num=0;
+                  if(type[child]==5){
+                    num=five[parent]+1;
+    			}else{
+    				num=five[parent];
+    			}
+    			if(num>five[child]){
+                    five[child]=num;
+    			}
+                }else{
+                	continue;
+                }
+    		}
+    	}
+    }
+}
+void aquib(){
+	int n,m; cin>>n>>m;
+	vector<vector<int>> adj(m);
+	for(int i=0;i<m;i++){
+		int u,v; cin>>u>>v;
+		int num1,num2; cin>>num1>>num2;
+		adj[u].pb(v);
+		adj[v].pb(u);
+		type[u]=num1;
+		type[v]=num2;
+	}
+	int destination; cin>>destination;
+	level[1]=0;
+	if(type[1]==5){
+		five[1]++;
+	}
+	bfs(1, adj, destination);
+	cout<<five[destination]<<endl;
+}
+int32_t main(){
+   int t=1;
+   cin>>t;
+   for(int i = 1; i <= t; ++i){
+    // cout << "Case #" << i << ": ";
+         aquib();
+    }
+    return 0;
+}
+/* stuff you should look for
+ * int overflow, array bounds
+ * special cases (n=1?)
+ * do smth instead of nothing and stay organized
+ * WRITE STUFF DOWN
+ * DON'T GET STUCK ON ONE APPROACH
+ */
+
+]
