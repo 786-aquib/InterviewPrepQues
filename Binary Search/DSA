@@ -54,3 +54,33 @@ class Solution{
 };]
 
 /**********************************************************************************************/
+
+[problem Link:-https://leetcode.com/problems/koko-eating-bananas/description/
+Solution:-
+class Solution {
+    bool good(vector<int>& piles, int num, int h){
+       long long int checker = 0;
+        for(int i=0;i<piles.size();i++){
+            checker += (((piles[i]-1)/num) + 1);
+        }
+        return checker<=h;
+    }
+public:
+   long long int minEatingSpeed(vector<int>& piles, int h) {
+       long long int ans = *max_element(piles.begin(),piles.end());
+       sort(piles.begin(),piles.end());
+      long long int low = 1, high = ans;
+       while(low <= high){
+           long long int mid = (low + high)/2;
+           if(good(piles, mid, h)){
+               high = mid - 1;
+               ans = min(ans, (long long)mid);
+           }else{
+               low = mid + 1;
+           }
+       }
+       return ans;
+    }
+};]
+
+/**********************************************************************************************/
