@@ -25,3 +25,32 @@ public:
        return nums[low];
     }
 };]
+
+
+/**********************************************************************************************/
+
+
+[Problem Link:-https://practice.geeksforgeeks.org/problems/find-nth-root-of-m5843/1
+Solution:-
+class Solution{
+	public:
+	int NthRoot(int n, int m){
+	    // Code here.
+	    int low = 1, high = m;
+	    int ans = -1;
+	    while(low <= high){
+	       int mid = (low + high) / 2;
+	        if(pow(mid, n) == m){
+	             ans = mid;
+	        }
+	        if(pow(mid, n) < m){
+	            low = mid + 1;
+	        }else{
+	            high = mid - 1;
+	        }
+	    }
+	    return ans;
+	}
+};]
+
+/**********************************************************************************************/
