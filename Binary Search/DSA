@@ -125,5 +125,33 @@ int countsmallerthanmid(vector<int> &row,int mid){
             }
         }
         return median;
+    }]
+
+
+
+    /**********************************************************************************************/
+
+    [problem Link:-https://leetcode.com/problems/arranging-coins/description/
+    Solution:-
+    class Solution {
+    long long int good(long long int num){
+        return (num * (num + 1))/2;
     }
-]
+   public:
+    long long int arrangeCoins(int n) {
+       long long int low = 1, high = n;
+        while(low <= high){
+           long long int mid = (low + high)/2;
+            if(good(mid) == n) return mid;
+            // cout<<good(mid)<<' ';
+            if(good(mid) < n){
+                low = mid + 1;
+            }else{
+                high = mid - 1;
+            }
+        }
+        return low - 1;
+    }
+};]
+
+/**********************************************************************************************/
