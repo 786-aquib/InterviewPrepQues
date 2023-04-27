@@ -247,3 +247,43 @@ class Solution{
 
 
 /**********************************************************************************************/
+
+
+[Problem Link:-https://practice.geeksforgeeks.org/problems/aggressive-cows/1
+Solution:-
+class Solution {
+    bool good(vector<int> &stalls, int mid, int k){
+        int dist = stalls[0], cnt = 1;
+        for(int i=1;i<stalls.size();i++){
+            if(stalls[i] - dist >= mid){
+                dist = stalls[i];
+                cnt++;
+            }else{
+                //continue;
+            }
+        }
+        return cnt>=k;
+    }
+public:
+    int solve(int n, int k, vector<int> &stalls) {
+        // Write your code here
+        sort(stalls.begin(), stalls.end());
+        int low = 0, high = 1e9;
+        int ans = -1;
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(good(stalls, mid, k)){
+                low = mid + 1;
+                ans =  mid;
+            }else{
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};]
+
+
+/**********************************************************************************************/
+
+
