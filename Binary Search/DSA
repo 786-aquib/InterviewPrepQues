@@ -155,3 +155,58 @@ int countsmallerthanmid(vector<int> &row,int mid){
 };]
 
 /**********************************************************************************************/
+
+
+[Problem Link:-https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/
+Solution:-
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        vector<int> idx;
+        int t=target-'a';
+        char ans = letters[0];
+        for(int i=0;i<letters.size();i++){
+            idx.push_back(letters[i]-'a');
+        }
+        int id = upper_bound(idx.begin(), idx.end(), t)-idx.begin();
+        if(id != letters.size()){
+            ans = letters[id];
+        }
+        return ans;
+    }
+};]
+
+/**********************************************************************************************/
+
+[problem Link:-https://leetcode.com/problems/house-robber-iv/description/
+Solution:-
+class Solution {
+    bool good(vector<int>& nums, int mid, int k){
+        int cnt = 0;
+        int i=0;
+        while(i<nums.size()){
+            if(nums[i]<=mid){
+                cnt++;
+                i+=2;
+            }else{
+                i++;
+            }
+        }
+        return cnt>=k;
+    }
+public:
+    int minCapability(vector<int>& nums, int k) {
+        int low = 1, high = *max_element(nums.begin(), nums.end());
+        int ans = 1e9+1;
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(good(nums, mid, k)){
+                high = mid - 1;
+                ans = min(ans, mid);
+            }else{
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+};]
