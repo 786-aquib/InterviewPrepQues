@@ -328,3 +328,68 @@ class Solution {
 
 
 /**********************************************************************************************/
+
+
+[problem Link:-https://leetcode.com/problems/koko-eating-bananas/
+Solution:-
+class Solution {
+    bool good(vector<int>& piles, int num, int h){
+       long long int checker = 0;
+        for(int i=0;i<piles.size();i++){
+            checker += (((piles[i]-1)/num) + 1);
+        }
+        return checker<=h;
+    }
+public:
+   long long int minEatingSpeed(vector<int>& piles, int h) {
+       long long int ans = *max_element(piles.begin(),piles.end());
+       sort(piles.begin(),piles.end());
+      long long int low = 1, high = ans;
+       while(low <= high){
+           long long int mid = (low + high)/2;
+           if(good(piles, mid, h)){
+               high = mid - 1;
+               ans = min(ans, (long long)mid);
+           }else{
+               low = mid + 1;
+           }
+       }
+       return ans;
+    }
+};]
+
+
+
+/**********************************************************************************************/
+
+
+
+[Problem Link:-https://leetcode.com/problems/minimize-the-maximum-difference-of-pairs/description/
+Solution:-
+class Solution {
+public:
+   bool good(vector<int> &nums, int mid, int p) {
+        for(int i = 1; i < nums.size(); i++) {
+            if(nums[i] - nums[i - 1] <= mid) {
+                p--; i++;
+            }
+        }
+        return p <= 0;
+    }
+    int minimizeMax(vector<int>& nums, int p) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        int ans = nums[n-1];
+        int low = 0, high = nums[n-1]-nums[0];
+        while(low <= high){
+            int mid = (low + (high - low)/2);
+            if(good(nums, mid, p)){
+                ans =  mid;
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+};]
